@@ -453,14 +453,22 @@ let currentStep=1;const totalSteps=5;
 const state={likert:{},challenges:new Set(),training:new Set(),format:new Set(),waktu:new Set(),harapan:new Set(),frekuensi:'',narasumber:''};
 
 // ==================== GOOGLE SHEETS INTEGRATION ====================
-let SHEET_API='';
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  ADMIN: Paste URL Apps Script hasil deploy Anda di bawah    ║
+// ║  Contoh: 'https://script.google.com/macros/s/xxxxx/exec'    ║
+// ║  Setelah diisi, semua responden otomatis terhubung.         ║
+// ╚══════════════════════════════════════════════════════════════╝
+const DEFAULT_SHEET_API = '';
+
+let SHEET_API = DEFAULT_SHEET_API;
 let sheetCache=[];
 let isLoading=false;
 
-function getSavedAPI(){return localStorage.getItem('mgmp_sheet_api')||''}
+function getSavedAPI(){return localStorage.getItem('mgmp_sheet_api')||DEFAULT_SHEET_API}
 function saveAPI(url){localStorage.setItem('mgmp_sheet_api',url)}
 function getResponses(){return sheetCache}
 function updateBadge(){document.getElementById('respCount').textContent=sheetCache.length}
+function isSheetConnected(){return !!(SHEET_API||getSavedAPI())}
 
 async function fetchFromSheet(){
   const url=SHEET_API||getSavedAPI();
@@ -518,14 +526,19 @@ function parseSheetRow(row){
   };
 }
 
-function isSheetConnected(){return !!(SHEET_API||getSavedAPI())}
-
 function renderConnectionStatus(){
   const connected=isSheetConnected();
-  return `<div class="admin-bar ${connected?'logged-in':''}" style="margin-bottom:.5rem">
-    <div class="admin-status ${connected?'unlocked':'locked'}">${connected?'☁️ Terhubung ke Google Sheets':'⚠️ Belum terhubung ke Google Sheets'}</div>
+  if(!connected){
+    return `<div class="admin-bar" style="margin-bottom:.5rem">
+      <div class="admin-status locked">⚠️ Belum terhubung ke Google Sheets</div>
+      <div style="flex:1"></div>
+      ${isAdmin?`<button class="btn-admin btn-admin-login" onclick="showConfigPanel()">🔗 Hubungkan</button>`:''}
+    </div>`;
+  }
+  return `<div class="admin-bar logged-in" style="margin-bottom:.5rem">
+    <div class="admin-status unlocked">☁️ Terhubung ke Google Sheets</div>
     <div style="flex:1"></div>
-    <button class="btn-admin ${connected?'btn-admin-logout':'btn-admin-login'}" onclick="showConfigPanel()">${connected?'⚙️ Pengaturan':'🔗 Hubungkan'}</button>
+    ${isAdmin?`<button class="btn-admin btn-admin-logout" onclick="showConfigPanel()">⚙️ Pengaturan</button>`:''}
   </div>`;
 }
 
@@ -535,7 +548,7 @@ function showConfigPanel(){
   document.getElementById('confirmMsg').innerHTML=`
     <div style="text-align:left;font-size:.78rem">
       <p style="margin-bottom:.5rem">Paste URL Apps Script Web App Anda:</p>
-      <input type="text" id="sheetUrlInput" class="form-input" value="${current}" placeholder="https://script.google.com/macros/s/AKfycbx5pgedpkNvGBJ8LJuJ347hPd75saeZNleRxm3K_qRX2B7Hh9NOJTIM51Xd2QXj7Tp4rQ/exec" style="font-size:.78rem;margin-bottom:.6rem">
+      <input type="text" id="sheetUrlInput" class="form-input" value="${current}" placeholder="https://script.google.com/macros/s/AKfycbydlIek54_nHBi7UCbTIk69D4u5pmJXxoh9x_P6WDhIFK054s1lp9Dgvz-Dj7K7MNlTsQ/exec" style="font-size:.78rem;margin-bottom:.6rem">
       <p style="font-size:.68rem;color:var(--text-muted)">Lihat panduan setup di file <strong>PANDUAN-SETUP-GOOGLE-SHEETS.md</strong></p>
     </div>`;
   document.getElementById('confirmYes').textContent='💾 Simpan';
@@ -657,7 +670,7 @@ async function switchPage(p){
 async function submitForm(){
   const nama=document.getElementById('nama').value.trim();
   if(!nama){showToast('⚠️ Mohon isi nama lengkap terlebih dahulu');goStep(1);return}
-  if(!isSheetConnected()){showToast('⚠️ Hubungkan ke Google Sheets terlebih dahulu di tab Hasil');return}
+  if(!isSheetConnected()){showToast('⚠️ Sistem belum siap. Hubungi ketua MGMP.');return}
   const record={
     id:Date.now(),timestamp:new Date().toISOString(),
     profil:{nama,sekolah:document.getElementById('sekolah').value,jurusan:document.getElementById('jurusan').value,pendidikan:document.getElementById('pendidikan').value,masaMengajar:document.getElementById('masaMengajar').value,sertifikasi:document.getElementById('sertifikasi').value,email:document.getElementById('email').value},
@@ -689,7 +702,12 @@ function renderResults(){
   const R=rawData.map(r=>r.profil?r:parseSheetRow(r));
   const c=document.getElementById('resultsContent');
   if(!isSheetConnected()){
-    c.innerHTML=`<div class="section-card"><div class="empty-state"><div class="empty-icon">🔗</div><div class="empty-title">Hubungkan Google Sheets</div><div class="empty-desc">Untuk menyimpan data responden secara terpusat agar bisa diakses dari perangkat manapun, hubungkan dengan Google Sheets terlebih dahulu.</div><button class="btn btn-primary" onclick="showConfigPanel()">🔗 Hubungkan Sekarang</button><div style="margin-top:.8rem;font-size:.72rem;color:var(--text-muted)">Lihat panduan di file <strong>PANDUAN-SETUP-GOOGLE-SHEETS.md</strong></div></div></div>`;return;
+    if(isAdmin){
+      c.innerHTML=`<div class="section-card"><div class="empty-state"><div class="empty-icon">🔗</div><div class="empty-title">Hubungkan Google Sheets</div><div class="empty-desc">Sebagai admin, hubungkan Google Sheets agar data responden tersimpan terpusat dan bisa diakses dari perangkat manapun.</div><button class="btn btn-primary" onclick="showConfigPanel()">🔗 Hubungkan Sekarang</button><div style="margin-top:.8rem;font-size:.72rem;color:var(--text-muted)">Lihat panduan di file <strong>PANDUAN-SETUP-GOOGLE-SHEETS.md</strong></div></div></div>`;
+    }else{
+      c.innerHTML=`<div class="section-card"><div class="empty-state"><div class="empty-icon">⏳</div><div class="empty-title">Sistem Belum Siap</div><div class="empty-desc">Admin belum menghubungkan database. Silakan hubungi ketua MGMP untuk mengaktifkan sistem kuesioner.</div></div></div>`;
+    }
+    return;
   }
   if(!R.length){c.innerHTML=renderConnectionStatus()+`<div class="section-card"><div class="empty-state"><div class="empty-icon">📭</div><div class="empty-title">Belum Ada Data Responden</div><div class="empty-desc">Kuesioner belum ada yang mengisi. Bagikan link ke WAG MGMP agar anggota bisa mengisi.</div><button class="btn btn-primary" onclick="switchPage('form')">📝 Isi Kuesioner</button></div></div>`;return}
   const N=R.length;
