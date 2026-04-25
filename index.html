@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>MGMP Bahasa Inggris SMK — Needs Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f0f4f8;--surface:#fff;--surface-alt:#f7fafc;
+  --primary:#0f4c81;--primary-light:#1a6bb5;--primary-pale:#e8f0fa;
+  --accent:#e8913a;--accent-light:#f5a623;
+  --text:#1a2332;--text-secondary:#5a6a7e;--text-muted:#8e9bae;
+  --border:#dfe6ee;--border-light:#edf1f7;
+  --success:#2d9f6f;--success-bg:#e6f7ef;
+  --danger:#d64545;--danger-bg:#fde8e8;
+  --warning:#e8913a;--warning-bg:#fef3e0;
+  --radius:12px;--radius-lg:20px;
+  --shadow-sm:0 1px 3px rgba(15,76,129,.06);
+  --shadow:0 4px 16px rgba(15,76,129,.08);
+  --shadow-lg:0 12px 40px rgba(15,76,129,.12);
+  --shadow-xl:0 20px 60px rgba(15,76,129,.16);
+  --font:'Plus Jakarta Sans',system-ui,sans-serif;
+  --font-display:'Playfair Display',Georgia,serif;
+  --transition:all .3s cubic-bezier(.4,0,.2,1);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--primary);border-radius:8px}
+
+/* === HERO === */
+.hero{background:linear-gradient(135deg,#0a2e50 0%,#0f4c81 40%,#1a6bb5 100%);position:relative;overflow:hidden;padding:2rem 1.5rem 1rem;text-align:center;color:#fff}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);backdrop-filter:blur(8px);padding:5px 14px;border-radius:20px;font-size:.7rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:.6rem;border:1px solid rgba(255,255,255,.15)}
+.hero h1{font-family:var(--font-display);font-size:clamp(1.4rem,4vw,2.2rem);font-weight:700;margin-bottom:.3rem;position:relative}
+.hero p{font-size:.85rem;opacity:.8;max-width:520px;margin:0 auto;position:relative;font-weight:300}
+
+/* === TAB NAV === */
+.tab-nav{display:flex;justify-content:center;gap:0;background:rgba(255,255,255,.08);margin:1rem auto 0;border-radius:12px;overflow:hidden;max-width:400px;position:relative;border:1px solid rgba(255,255,255,.12)}
+.tab-btn{flex:1;padding:.6rem 1rem;font-family:var(--font);font-size:.78rem;font-weight:600;color:rgba(255,255,255,.6);background:transparent;border:none;cursor:pointer;transition:var(--transition);position:relative;display:flex;align-items:center;justify-content:center;gap:6px}
+.tab-btn.active{color:#fff;background:rgba(255,255,255,.15)}
+.tab-btn .tab-badge{background:var(--accent);color:#fff;font-size:.6rem;padding:1px 7px;border-radius:10px;font-weight:700;min-width:20px;text-align:center}
+
+/* === PROGRESS === */
+.progress-container{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-light);padding:.65rem 1.5rem}
+.progress-inner{max-width:780px;margin:0 auto;display:flex;align-items:center;gap:1rem}
+.progress-steps{flex:1;display:flex;gap:4px}
+.progress-step{flex:1;height:5px;border-radius:8px;background:var(--border);transition:var(--transition)}
+.progress-step.done{background:var(--primary)}
+.progress-step.active{background:var(--accent);animation:pulse-bar 2s infinite}
+@keyframes pulse-bar{0%,100%{opacity:1}50%{opacity:.6}}
+.progress-label{font-size:.72rem;font-weight:600;color:var(--text-secondary);white-space:nowrap;min-width:70px;text-align:right}
+
+/* === MAIN === */
+.main{max-width:780px;margin:0 auto;padding:1.5rem}
+.page{display:none}.page.active{display:block}
+
+/* === SECTION CARDS === */
+.section-card{background:var(--surface);border-radius:var(--radius-lg);box-shadow:var(--shadow);margin-bottom:1.5rem;overflow:hidden;border:1px solid var(--border-light);animation:slideUp .5s ease both}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.section-header{padding:1.25rem 1.5rem .85rem;border-bottom:1px solid var(--border-light)}
+.section-tag{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--accent);margin-bottom:.2rem}
+.section-title{font-family:var(--font-display);font-size:1.25rem;color:var(--primary);margin-bottom:.15rem}
+.section-subtitle{font-size:.75rem;color:var(--text-muted);font-style:italic}
+.section-body{padding:1.15rem 1.5rem 1.5rem}
+
+/* === FORM === */
+.form-group{margin-bottom:1.1rem}
+.form-label{display:block;font-size:.8rem;font-weight:600;color:var(--text);margin-bottom:.35rem}
+.form-label-en{font-size:.7rem;color:var(--text-muted);font-style:italic;font-weight:400}
+.form-input,.form-select,.form-textarea{width:100%;padding:.65rem .85rem;border:1.5px solid var(--border);border-radius:var(--radius);font-family:var(--font);font-size:.86rem;color:var(--text);background:var(--surface);transition:var(--transition)}
+.form-input:focus,.form-select:focus,.form-textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-pale)}
+.form-textarea{resize:vertical;min-height:70px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+
+/* === LIKERT === */
+.likert-item{background:var(--surface-alt);border:1px solid var(--border-light);border-radius:var(--radius);padding:.9rem;margin-bottom:.5rem;transition:var(--transition)}
+.likert-item:hover{border-color:var(--primary-light);transform:translateX(2px)}
+.likert-text{font-size:.82rem;font-weight:500;margin-bottom:.1rem}
+.likert-text-en{font-size:.68rem;color:var(--text-muted);font-style:italic;margin-bottom:.5rem}
+.likert-options{display:flex;gap:5px}
+.likert-btn{flex:1;padding:.4rem .15rem;border:1.5px solid var(--border);border-radius:8px;background:var(--surface);font-size:.68rem;font-weight:600;color:var(--text-secondary);cursor:pointer;transition:var(--transition);text-align:center;line-height:1.2}
+.likert-btn:hover{border-color:var(--primary);color:var(--primary)}
+.likert-btn.selected{background:var(--primary);color:#fff;border-color:var(--primary);box-shadow:0 2px 8px rgba(15,76,129,.25)}
+.likert-labels{display:flex;justify-content:space-between;margin-bottom:.25rem}
+.likert-labels span{font-size:.58rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px}
+
+/* === CHECKBOX & RADIO === */
+.check-group{display:flex;flex-direction:column;gap:.35rem}
+.check-item{display:flex;align-items:flex-start;gap:.55rem;padding:.55rem .75rem;border:1.5px solid var(--border-light);border-radius:var(--radius);cursor:pointer;transition:var(--transition);background:var(--surface)}
+.check-item:hover{border-color:var(--primary-light);background:var(--primary-pale)}
+.check-item.checked{border-color:var(--primary);background:var(--primary-pale)}
+.check-box{width:20px;height:20px;border:2px solid var(--border);border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:var(--transition);margin-top:1px}
+.check-item.checked .check-box{background:var(--primary);border-color:var(--primary)}
+.check-box svg{width:12px;height:12px;stroke:#fff;stroke-width:3;fill:none;opacity:0;transition:var(--transition)}
+.check-item.checked .check-box svg{opacity:1}
+.check-text{font-size:.8rem;font-weight:500;line-height:1.4}
+.check-text-en{font-size:.68rem;color:var(--text-muted);font-style:italic}
+.radio-group{display:flex;flex-direction:column;gap:.35rem}
+.radio-item{display:flex;align-items:center;gap:.55rem;padding:.5rem .75rem;border:1.5px solid var(--border-light);border-radius:var(--radius);cursor:pointer;transition:var(--transition);background:var(--surface)}
+.radio-item:hover{border-color:var(--primary-light)}
+.radio-item.selected{border-color:var(--primary);background:var(--primary-pale)}
+.radio-dot{width:18px;height:18px;border:2px solid var(--border);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:var(--transition)}
+.radio-item.selected .radio-dot{border-color:var(--primary)}
+.radio-dot::after{content:'';width:10px;height:10px;border-radius:50%;background:var(--primary);transform:scale(0);transition:var(--transition)}
+.radio-item.selected .radio-dot::after{transform:scale(1)}
+
+/* === BUTTONS === */
+.nav-buttons{display:flex;gap:.75rem;margin-top:1.25rem;justify-content:space-between}
+.btn{padding:.7rem 1.4rem;border:none;border-radius:var(--radius);font-family:var(--font);font-size:.85rem;font-weight:600;cursor:pointer;transition:var(--transition);display:inline-flex;align-items:center;gap:.5rem}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;box-shadow:0 4px 12px rgba(15,76,129,.25)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(15,76,129,.3)}
+.btn-secondary{background:var(--surface);color:var(--text-secondary);border:1.5px solid var(--border)}
+.btn-secondary:hover{border-color:var(--primary);color:var(--primary)}
+.btn-accent{background:linear-gradient(135deg,var(--accent),var(--accent-light));color:#fff;box-shadow:0 4px 12px rgba(232,145,58,.3)}
+.btn-accent:hover{transform:translateY(-1px)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-danger:hover{filter:brightness(1.1)}
+.step{display:none}.step.active{display:block}
+
+/* === DASHBOARD === */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.65rem;margin-bottom:1.25rem}
+.stat-card{background:var(--surface);border-radius:var(--radius);padding:.85rem .6rem;text-align:center;border:1px solid var(--border-light);box-shadow:var(--shadow-sm)}
+.stat-value{font-size:1.7rem;font-weight:800;color:var(--primary);line-height:1}
+.stat-label{font-size:.65rem;color:var(--text-muted);margin-top:.25rem;text-transform:uppercase;letter-spacing:.5px}
+.chart-card{background:var(--surface);border-radius:var(--radius-lg);padding:1.15rem;margin-bottom:.85rem;border:1px solid var(--border-light);box-shadow:var(--shadow-sm)}
+.chart-title{font-size:.82rem;font-weight:700;color:var(--primary);margin-bottom:.65rem;display:flex;align-items:center;gap:.4rem}
+.chart-title-icon{font-size:1rem}
+.chart-desc{font-size:.7rem;color:var(--text-muted);margin-top:-.4rem;margin-bottom:.6rem}
+
+/* === HORIZONTAL BAR === */
+.hbar{margin-bottom:.55rem}
+.hbar-label{font-size:.72rem;font-weight:500;margin-bottom:.15rem;display:flex;justify-content:space-between;gap:.5rem}
+.hbar-label span:last-child{font-weight:700;color:var(--primary);white-space:nowrap}
+.hbar-track{height:20px;background:var(--border-light);border-radius:6px;overflow:hidden;position:relative}
+.hbar-fill{height:100%;border-radius:6px;transition:width .8s cubic-bezier(.4,0,.2,1);min-width:0}
+
+/* === PRIORITY LIST === */
+.priority-list{counter-reset:priority}
+.priority-item{display:flex;align-items:center;gap:.65rem;padding:.6rem .75rem;border-radius:var(--radius);margin-bottom:.35rem;background:var(--surface-alt);border:1px solid var(--border-light);animation:slideIn .4s ease both}
+.priority-item::before{counter-increment:priority;content:counter(priority);width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;flex-shrink:0}
+.priority-item:nth-child(1)::before{background:var(--accent);color:#fff}
+.priority-item:nth-child(2)::before{background:var(--primary);color:#fff}
+.priority-item:nth-child(3)::before{background:var(--primary-light);color:#fff}
+.priority-item:nth-child(n+4)::before{background:var(--border);color:var(--text-secondary)}
+.priority-text{font-size:.78rem;font-weight:500;flex:1}
+.priority-score{font-size:.7rem;font-weight:700;color:var(--accent)}
+@keyframes slideIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
+
+/* === REC CARDS === */
+.rec-card{border-left:4px solid var(--accent);background:var(--surface-alt);border-radius:0 var(--radius) var(--radius) 0;padding:.85rem 1.1rem;margin-bottom:.5rem}
+.rec-card h4{font-size:.8rem;font-weight:700;color:var(--primary);margin-bottom:.15rem}
+.rec-card p{font-size:.72rem;color:var(--text-secondary);line-height:1.5}
+.rec-tag{display:inline-block;font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:2px 7px;border-radius:4px;margin-bottom:.25rem}
+.rec-tag.easy{background:var(--success-bg);color:var(--success)}
+.rec-tag.medium{background:var(--warning-bg);color:var(--warning)}
+.rec-tag.hard{background:var(--danger-bg);color:var(--danger)}
+
+/* === RESPONDENT TABLE === */
+.resp-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:1rem}
+.resp-table{width:100%;border-collapse:collapse;font-size:.72rem;min-width:500px}
+.resp-table th{background:var(--primary);color:#fff;padding:.55rem .5rem;text-align:left;font-weight:600;position:sticky;top:0;white-space:nowrap}
+.resp-table td{padding:.5rem;border-bottom:1px solid var(--border-light);vertical-align:top}
+.resp-table tr:nth-child(even){background:var(--surface-alt)}
+.resp-table tr:hover{background:var(--primary-pale)}
+.resp-delete{background:none;border:none;color:var(--danger);cursor:pointer;font-size:.85rem;padding:2px 6px;border-radius:4px;transition:var(--transition)}
+.resp-delete:hover{background:var(--danger-bg)}
+
+/* === DONUT CHART === */
+.donut-row{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center}
+.donut-item{text-align:center;flex:0 0 auto}
+.donut-item svg{width:90px;height:90px}
+.donut-label{font-size:.65rem;color:var(--text-secondary);margin-top:.2rem;font-weight:500}
+
+/* === EXPORT === */
+.export-section{background:linear-gradient(135deg,#0a2e50,#0f4c81);border-radius:var(--radius-lg);padding:1.25rem;color:#fff;text-align:center;margin-top:1.25rem}
+.export-section h3{font-family:var(--font-display);font-size:1.1rem;margin-bottom:.3rem}
+.export-section p{font-size:.75rem;opacity:.7;margin-bottom:.8rem}
+.export-buttons{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap}
+.btn-export{padding:.55rem 1rem;border:1.5px solid rgba(255,255,255,.3);border-radius:var(--radius);background:rgba(255,255,255,.1);color:#fff;font-family:var(--font);font-size:.75rem;font-weight:600;cursor:pointer;transition:var(--transition);display:inline-flex;align-items:center;gap:.35rem}
+.btn-export:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.5)}
+
+/* === ADMIN PANEL === */
+.admin-bar{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:.7rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.admin-bar.logged-in{border-color:var(--success);background:var(--success-bg)}
+.admin-input{flex:1;min-width:120px;padding:.45rem .7rem;border:1.5px solid var(--border);border-radius:8px;font-family:var(--font);font-size:.78rem}
+.admin-input:focus{outline:none;border-color:var(--primary)}
+.admin-status{font-size:.72rem;font-weight:600;display:flex;align-items:center;gap:.3rem}
+.admin-status.locked{color:var(--text-muted)}
+.admin-status.unlocked{color:var(--success)}
+.btn-admin{padding:.4rem .85rem;border:none;border-radius:8px;font-family:var(--font);font-size:.72rem;font-weight:600;cursor:pointer;transition:var(--transition)}
+.btn-admin-login{background:var(--primary);color:#fff}
+.btn-admin-login:hover{filter:brightness(1.1)}
+.btn-admin-logout{background:var(--border);color:var(--text-secondary)}
+.btn-admin-logout:hover{background:var(--danger-bg);color:var(--danger)}
+
+/* === EMPTY STATE === */
+.empty-state{text-align:center;padding:3rem 1.5rem}
+.empty-icon{font-size:3rem;margin-bottom:.75rem}
+.empty-title{font-family:var(--font-display);font-size:1.2rem;color:var(--primary);margin-bottom:.3rem}
+.empty-desc{font-size:.82rem;color:var(--text-muted);max-width:380px;margin:0 auto .8rem}
+
+/* === TOAST === */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:#1a2332;color:#fff;padding:.7rem 1.3rem;border-radius:var(--radius);font-size:.8rem;font-weight:500;z-index:999;transition:transform .4s cubic-bezier(.4,0,.2,1);box-shadow:var(--shadow-xl)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.footer{text-align:center;padding:1.5rem 1rem;color:var(--text-muted);font-size:.68rem}
+
+/* ===== CONFIRM DIALOG ===== */
+.confirm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;align-items:center;justify-content:center;padding:1rem}
+.confirm-overlay.show{display:flex}
+.confirm-box{background:var(--surface);border-radius:var(--radius-lg);padding:1.5rem;max-width:360px;width:100%;text-align:center;box-shadow:var(--shadow-xl)}
+.confirm-box h4{font-size:1rem;margin-bottom:.4rem;color:var(--text)}
+.confirm-box p{font-size:.82rem;color:var(--text-secondary);margin-bottom:1.25rem}
+.confirm-actions{display:flex;gap:.5rem;justify-content:center}
+
+/* ===== RESPONSIVE ===== */
+@media(min-width:901px){
+  .main{max-width:820px;padding:2rem}
+  .hero{padding:2.5rem 2rem 1.2rem}
+  .section-header{padding:1.5rem 2rem 1rem}
+  .section-body{padding:1.5rem 2rem 2rem}
+  .section-title{font-size:1.4rem}
+  .form-input,.form-select,.form-textarea{padding:.75rem 1rem;font-size:.9rem}
+  .stats-grid{grid-template-columns:repeat(4,1fr);gap:.85rem}
+  .chart-card{padding:1.4rem}
+  .donut-item svg{width:110px;height:110px}
+}
+@media(max-width:600px){
+  html{font-size:15px}
+  .hero{padding:1.5rem 1rem .8rem}
+  .hero h1{font-size:1.3rem}
+  .hero p{font-size:.78rem}
+  .tab-nav{margin:.75rem .5rem 0;max-width:100%}
+  .tab-btn{font-size:.72rem;padding:.5rem .5rem}
+  .main{padding:.75rem}
+  .section-card{border-radius:var(--radius);margin-bottom:1rem}
+  .section-header{padding:1rem .9rem .7rem}
+  .section-title{font-size:1.1rem}
+  .section-body{padding:.9rem}
+  .form-row{grid-template-columns:1fr}
+  .form-input,.form-select,.form-textarea{font-size:max(.86rem,16px);padding:.7rem .8rem}
+  .likert-options{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+  .likert-btn{min-height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:.7rem;padding:.45rem .25rem}
+  .check-item{padding:.65rem .75rem;min-height:46px}
+  .check-box{width:22px;height:22px}
+  .radio-item{padding:.6rem .75rem;min-height:46px}
+  .radio-dot{width:22px;height:22px}
+  .nav-buttons{flex-direction:column;gap:.5rem}
+  .nav-buttons .btn{width:100%;justify-content:center;min-height:46px}
+  .nav-buttons .btn-secondary{order:2}
+  .nav-buttons .btn-primary,.nav-buttons .btn-accent{order:1}
+  .stats-grid{grid-template-columns:1fr 1fr;gap:.5rem}
+  .stat-value{font-size:1.4rem}
+  .export-buttons{flex-direction:column;align-items:stretch}
+  .btn-export{justify-content:center;min-height:44px}
+  .toast{left:.75rem;right:.75rem;transform:translateX(0) translateY(100px);text-align:center}
+  .toast.show{transform:translateX(0) translateY(0)}
+  .progress-container{padding:.5rem .75rem}
+  .donut-item svg{width:80px;height:80px}
+  .donut-label{font-size:.6rem}
+}
+@media(max-width:360px){html{font-size:14px}.main{padding:.4rem}.section-body{padding:.75rem}}
+@supports(padding-bottom:env(safe-area-inset-bottom)){
+  .footer{padding-bottom:calc(1.5rem + env(safe-area-inset-bottom))}
+  .toast{bottom:calc(1.5rem + env(safe-area-inset-bottom))}
+}
+@media(hover:none) and (pointer:coarse){
+  .likert-item:hover{transform:none}
+  .btn:hover{transform:none}
+  .check-item:hover{background:var(--surface);border-color:var(--border-light)}
+  .check-item.checked:hover{background:var(--primary-pale);border-color:var(--primary)}
+  .likert-btn:active,.check-item:active,.radio-item:active,.btn:active{transform:scale(.97)}
+}
+@media print{
+  .hero{padding:1rem;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .progress-container,.nav-buttons,.export-section,.footer,.toast,.tab-nav{display:none!important}
+  .main{max-width:100%;padding:0}
+  .section-card{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
+  .page{display:block!important}
+  #formPage{display:none!important}
+  .hbar-fill,.stat-card,.rec-card,.priority-item{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-badge">📋 Needs Assessment 2026</div>
+  <h1>MGMP Bahasa Inggris SMK</h1>
+  <p>Kuesioner Analisis Kebutuhan — Bantu kami menyusun program kerja yang tepat sasaran</p>
+  <nav class="tab-nav" id="tabNav">
+    <button class="tab-btn active" onclick="switchPage('form')" id="tabForm">📝 Kuesioner</button>
+    <button class="tab-btn" onclick="switchPage('results')" id="tabResults">📊 Hasil <span class="tab-badge" id="respCount">0</span></button>
+  </nav>
+</header>
+
+<div class="progress-container" id="progressBar">
+  <div class="progress-inner">
+    <div class="progress-steps" id="progressSteps"></div>
+    <div class="progress-label" id="progressLabel">Bagian 1/5</div>
+  </div>
+</div>
+
+<!-- ==================== PAGE: FORM ==================== -->
+<div class="main page active" id="formPage">
+  <div class="step active" data-step="1">
+    <div class="section-card"><div class="section-header"><div class="section-tag">Bagian A</div><div class="section-title">Profil Guru</div><div class="section-subtitle">Teacher Profile</div></div>
+      <div class="section-body">
+        <div class="form-group"><label class="form-label">Nama Lengkap <span class="form-label-en">Full Name</span></label><input class="form-input" id="nama" placeholder="Masukkan nama lengkap"></div>
+        <div class="form-group"><label class="form-label">Asal Sekolah <span class="form-label-en">School</span></label><input class="form-input" id="sekolah" placeholder="Nama sekolah"></div>
+        <div class="form-group"><label class="form-label">Jurusan yang Diajar <span class="form-label-en">Vocational Program</span></label><input class="form-input" id="jurusan" placeholder="Contoh: TKJ, RPL, Akuntansi"></div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Pendidikan Terakhir</label><select class="form-select" id="pendidikan"><option value="">— Pilih —</option><option>S1</option><option>S2</option><option>S3</option><option>Lainnya</option></select></div>
+          <div class="form-group"><label class="form-label">Masa Mengajar</label><select class="form-select" id="masaMengajar"><option value="">— Pilih —</option><option>&lt; 5 tahun</option><option>5–10 tahun</option><option>&gt; 10 tahun</option></select></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Status Sertifikasi</label><select class="form-select" id="sertifikasi"><option value="">— Pilih —</option><option>Sudah</option><option>Belum</option></select></div>
+          <div class="form-group"><label class="form-label">Email (belajar.id)</label><input class="form-input" id="email" type="email" placeholder="nama@belajar.id"></div>
+        </div>
+        <div class="nav-buttons"><div></div><button class="btn btn-primary" onclick="goStep(2)">Lanjut → Kompetensi</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="step" data-step="2">
+    <div class="section-card"><div class="section-header"><div class="section-tag">Bagian B</div><div class="section-title">Penilaian Diri Kompetensi</div><div class="section-subtitle">Self-Assessment</div></div>
+      <div class="section-body">
+        <div class="likert-labels"><span>Sangat Tidak Setuju</span><span>Sangat Setuju</span></div>
+        <div id="likertContainer"></div>
+        <div class="nav-buttons"><button class="btn btn-secondary" onclick="goStep(1)">← Kembali</button><button class="btn btn-primary" onclick="goStep(3)">Lanjut → Tantangan</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="step" data-step="3">
+    <div class="section-card"><div class="section-header"><div class="section-tag">Bagian C</div><div class="section-title">Tantangan Mengajar</div><div class="section-subtitle">Teaching Challenges</div></div>
+      <div class="section-body">
+        <h4 style="font-size:.8rem;color:var(--primary);margin-bottom:.5rem">C1. Pembelajaran</h4><div class="check-group" id="chkPembelajaran"></div>
+        <h4 style="font-size:.8rem;color:var(--primary);margin:1rem 0 .5rem">C2. Asesmen</h4><div class="check-group" id="chkAsesmen"></div>
+        <h4 style="font-size:.8rem;color:var(--primary);margin:1rem 0 .5rem">C3. Teknologi</h4><div class="check-group" id="chkTeknologi"></div>
+        <div class="form-group" style="margin-top:1rem"><label class="form-label">Tantangan lainnya</label><textarea class="form-textarea" id="tantanganLain" rows="2" placeholder="Tantangan lain..."></textarea></div>
+        <div class="nav-buttons"><button class="btn btn-secondary" onclick="goStep(2)">← Kembali</button><button class="btn btn-primary" onclick="goStep(4)">Lanjut → Pelatihan</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="step" data-step="4">
+    <div class="section-card"><div class="section-header"><div class="section-tag">Bagian D</div><div class="section-title">Kebutuhan Pelatihan</div><div class="section-subtitle">Training Needs</div></div>
+      <div class="section-body">
+        <div class="check-group" id="chkPelatihan"></div>
+        <div class="form-group" style="margin-top:1rem"><label class="form-label">Topik lainnya</label><textarea class="form-textarea" id="pelatihanLain" rows="2" placeholder="Topik lain..."></textarea></div>
+        <div class="nav-buttons"><button class="btn btn-secondary" onclick="goStep(3)">← Kembali</button><button class="btn btn-primary" onclick="goStep(5)">Lanjut → Harapan</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="step" data-step="5">
+    <div class="section-card"><div class="section-header"><div class="section-tag">Bagian E</div><div class="section-title">Harapan terhadap MGMP</div><div class="section-subtitle">Expectations</div></div>
+      <div class="section-body">
+        <h4 style="font-size:.8rem;color:var(--primary);margin-bottom:.5rem">E1. Format kegiatan</h4><div class="check-group" id="chkFormat"></div>
+        <h4 style="font-size:.8rem;color:var(--primary);margin:1rem 0 .5rem">E2. Frekuensi pertemuan</h4><div class="radio-group" id="radioFrekuensi"></div>
+        <h4 style="font-size:.8rem;color:var(--primary);margin:1rem 0 .5rem">E3. Waktu pelaksanaan</h4><div class="check-group" id="chkWaktu"></div>
+        <h4 style="font-size:.8rem;color:var(--primary);margin:1rem 0 .5rem">E4. Harapan utama</h4><div class="check-group" id="chkHarapan"></div>
+        <h4 style="font-size:.8rem;color:var(--primary);margin:1rem 0 .5rem">E5. Kesediaan narasumber</h4><div class="radio-group" id="radioNarasumber"></div>
+        <div class="form-group" style="margin-top:1rem"><label class="form-label">E6. Saran & masukan</label><textarea class="form-textarea" id="saran" rows="3" placeholder="Saran untuk MGMP..."></textarea></div>
+        <div class="nav-buttons"><button class="btn btn-secondary" onclick="goStep(4)">← Kembali</button><button class="btn btn-accent" onclick="submitForm()" style="font-size:.92rem;padding:.8rem 1.8rem">✨ Simpan & Lihat Hasil</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAGE: RESULTS ==================== -->
+<div class="main page" id="resultsPage"><div id="resultsContent"></div></div>
+
+<div class="footer">MGMP Bahasa Inggris SMK — Needs Assessment Tool © 2026</div>
+<div class="toast" id="toast"></div>
+<div class="confirm-overlay" id="confirmDialog">
+  <div class="confirm-box"><h4 id="confirmTitle">Konfirmasi</h4><p id="confirmMsg">Apakah Anda yakin?</p>
+    <div class="confirm-actions"><button class="btn btn-secondary" onclick="closeConfirm()">Batal</button><button class="btn btn-danger" id="confirmYes">Ya, Hapus</button></div>
+  </div>
+</div>
+
+<script>
+// ==================== DATA ====================
+const LIKERT_ITEMS=[
+  {id:'cp',text:'Memahami CP Bahasa Inggris Fase F SMK',en:'Understand CP Phase F'},
+  {id:'tp',text:'Mampu menyusun TP dan Alur TP secara mandiri',en:'Develop TP independently'},
+  {id:'modul',text:'Mampu menyusun modul ajar Kurikulum Merdeka',en:'Develop Kurikulum Merdeka modules'},
+  {id:'skills',text:'Percaya diri mengajar 4 keterampilan bahasa (LSRW)',en:'Confident teaching 4 skills'},
+  {id:'esp',text:'Mampu mengintegrasikan ESP sesuai jurusan',en:'Integrate ESP for vocational'},
+  {id:'asesmen',text:'Mampu merancang asesmen formatif & sumatif bervariasi',en:'Design varied assessments'},
+  {id:'tech',text:'Mampu memanfaatkan teknologi digital dalam pembelajaran',en:'Use digital technology'},
+  {id:'tarl',text:'Memahami TaRL dan diferensiasi pembelajaran',en:'Understand TaRL & differentiation'},
+  {id:'proficiency',text:'Kemampuan Bahasa Inggris memadai (min. B2)',en:'Adequate English proficiency'},
+  {id:'pengembangan',text:'Aktif mengembangkan diri melalui pelatihan & komunitas',en:'Active professional development'},
+];
+const CHALLENGES={
+  pembelajaran:[
+    {id:'cp1',text:'Kemampuan siswa sangat beragam',en:'Varied student levels'},
+    {id:'cp2',text:'Motivasi belajar siswa rendah',en:'Low student motivation'},
+    {id:'cp3',text:'Sulit mengajar speaking/listening',en:'Difficulty teaching speaking/listening'},
+    {id:'cp4',text:'Sulit mengaitkan materi dengan konteks kejuruan (ESP)',en:'Difficulty with ESP context'},
+    {id:'cp5',text:'Kurangnya bahan ajar relevan SMK',en:'Lack of SMK materials'},
+    {id:'cp6',text:'Jam pelajaran terbatas',en:'Limited teaching hours'},
+    {id:'cp7',text:'Ukuran kelas terlalu besar',en:'Large class sizes'},
+  ],
+  asesmen:[
+    {id:'ca1',text:'Kesulitan menyusun soal HOTS',en:'HOTS questions'},
+    {id:'ca2',text:'Belum paham asesmen Kurikulum Merdeka',en:'Kurikulum Merdeka assessment'},
+    {id:'ca3',text:'Sulit melaksanakan asesmen autentik',en:'Authentic assessment'},
+    {id:'ca4',text:'Belum mampu pakai platform asesmen digital',en:'Digital assessment platforms'},
+    {id:'ca5',text:'Sulit melakukan asesmen diagnostik',en:'Diagnostic assessment'},
+  ],
+  teknologi:[
+    {id:'ct1',text:'Keterbatasan akses internet',en:'Limited internet'},
+    {id:'ct2',text:'Kurang terampil menggunakan LMS',en:'LMS skills'},
+    {id:'ct3',text:'Belum mampu membuat media interaktif',en:'Interactive media'},
+    {id:'ct4',text:'Belum familiar dengan AI tools',en:'AI tools'},
+    {id:'ct5',text:'Kurangnya perangkat memadai',en:'Insufficient devices'},
+  ]
+};
+const ALL_CHALLENGES=[...CHALLENGES.pembelajaran,...CHALLENGES.asesmen,...CHALLENGES.teknologi];
+const TRAINING_TOPICS=[
+  {id:'t1',text:'Penyusunan CP, TP, dan ATP',en:'CP, TP, ATP development',cat:'kurikulum'},
+  {id:'t2',text:'Modul Ajar Kurikulum Merdeka',en:'Kurikulum Merdeka modules',cat:'kurikulum'},
+  {id:'t3',text:'ESP untuk berbagai jurusan',en:'ESP for vocational programs',cat:'pedagogik'},
+  {id:'t4',text:'Teaching at the Right Level (TaRL)',en:'TaRL strategies',cat:'pedagogik'},
+  {id:'t5',text:'Asesmen formatif, sumatif & diagnostik',en:'Assessment types',cat:'asesmen'},
+  {id:'t6',text:'Pemanfaatan AI dalam pembelajaran',en:'AI in teaching',cat:'teknologi'},
+  {id:'t7',text:'Media pembelajaran digital & interaktif',en:'Digital interactive media',cat:'teknologi'},
+  {id:'t8',text:'Peningkatan English proficiency guru',en:'Teacher proficiency',cat:'proficiency'},
+  {id:'t9',text:'Penelitian Tindakan Kelas (PTK)',en:'Classroom Action Research',cat:'profesional'},
+  {id:'t10',text:'Project-Based Learning (PjBL)',en:'PjBL in SMK English',cat:'pedagogik'},
+  {id:'t11',text:'Lesson Study & Peer Teaching',en:'Lesson Study & Peer Teaching',cat:'profesional'},
+  {id:'t12',text:'Persiapan Asesmen Nasional',en:'National Assessment prep',cat:'asesmen'},
+];
+const FORMAT_OPTIONS=[
+  {id:'f1',text:'Workshop praktis',en:'Practical workshops'},
+  {id:'f2',text:'Seminar narasumber ahli',en:'Expert seminars'},
+  {id:'f3',text:'Lesson study & observasi',en:'Lesson study'},
+  {id:'f4',text:'Diskusi studi kasus',en:'Case study'},
+  {id:'f5',text:'Peer teaching / microteaching',en:'Peer teaching'},
+  {id:'f6',text:'Belajar mandiri (daring)',en:'Self-paced online'},
+  {id:'f7',text:'Kunjungan sekolah/industri',en:'Benchmarking visits'},
+];
+const FREQ_OPTIONS=[{id:'fr1',text:'1x per bulan'},{id:'fr2',text:'2x per bulan'},{id:'fr3',text:'1x per triwulan'},{id:'fr4',text:'Fleksibel'}];
+const WAKTU_OPTIONS=[{id:'w1',text:'Hari kerja (setelah mengajar)'},{id:'w2',text:'Sabtu'},{id:'w3',text:'Libur sekolah'},{id:'w4',text:'Daring/online'},{id:'w5',text:'Blended'}];
+const HARAPAN_OPTIONS=[{id:'h1',text:'Peningkatan kompetensi pedagogik'},{id:'h2',text:'Peningkatan kemampuan Bahasa Inggris'},{id:'h3',text:'Berbagi pengalaman & best practices'},{id:'h4',text:'Bahan ajar siap pakai'},{id:'h5',text:'Jejaring profesional'},{id:'h6',text:'Dukungan kenaikan pangkat'},{id:'h7',text:'Persiapan PPG/sertifikasi'}];
+const NARASUMBER_OPTIONS=[{id:'n1',text:'Ya, bersedia'},{id:'n2',text:'Bersedia jika dilatih'},{id:'n3',text:'Tidak saat ini'}];
+
+// ==================== STATE ====================
+let currentStep=1;const totalSteps=5;
+const state={likert:{},challenges:new Set(),training:new Set(),format:new Set(),waktu:new Set(),harapan:new Set(),frekuensi:'',narasumber:''};
+
+// ==================== GOOGLE SHEETS INTEGRATION ====================
+let SHEET_API='';
+let sheetCache=[];
+let isLoading=false;
+
+function getSavedAPI(){return localStorage.getItem('mgmp_sheet_api')||''}
+function saveAPI(url){localStorage.setItem('mgmp_sheet_api',url)}
+function getResponses(){return sheetCache}
+function updateBadge(){document.getElementById('respCount').textContent=sheetCache.length}
+
+async function fetchFromSheet(){
+  const url=SHEET_API||getSavedAPI();
+  if(!url){sheetCache=[];updateBadge();return}
+  isLoading=true;
+  try{
+    const res=await fetch(url);
+    const data=await res.json();
+    if(Array.isArray(data)){sheetCache=data}
+    else if(data.data&&Array.isArray(data.data)){sheetCache=data.data}
+    else{sheetCache=[]}
+  }catch(e){console.error('Fetch error:',e);sheetCache=[]}
+  isLoading=false;
+  updateBadge();
+}
+
+async function postToSheet(record){
+  const url=SHEET_API||getSavedAPI();
+  if(!url){showToast('⚠️ URL Google Sheets belum diatur');return false}
+  try{
+    const flat={
+      timestamp:record.timestamp,
+      nama:record.profil.nama,sekolah:record.profil.sekolah,jurusan:record.profil.jurusan,
+      pendidikan:record.profil.pendidikan,masaMengajar:record.profil.masaMengajar,
+      sertifikasi:record.profil.sertifikasi,email:record.profil.email,
+      komp_cp:record.kompetensi.cp||'',komp_tp:record.kompetensi.tp||'',
+      komp_modul:record.kompetensi.modul||'',komp_skills:record.kompetensi.skills||'',
+      komp_esp:record.kompetensi.esp||'',komp_asesmen:record.kompetensi.asesmen||'',
+      komp_tech:record.kompetensi.tech||'',komp_tarl:record.kompetensi.tarl||'',
+      komp_proficiency:record.kompetensi.proficiency||'',komp_pengembangan:record.kompetensi.pengembangan||'',
+      tantangan:record.tantangan.join(','),training:record.training.join(','),
+      format:record.format.join(','),frekuensi:record.frekuensi,
+      waktu:record.waktu.join(','),harapan:record.harapan.join(','),
+      narasumber:record.narasumber,
+      saran:record.saran,tantanganLain:record.tantanganLain,pelatihanLain:record.pelatihanLain,
+    };
+    await fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(flat)});
+    return true;
+  }catch(e){console.error('Post error:',e);return false}
+}
+
+function parseSheetRow(row){
+  return{
+    id:Date.parse(row.timestamp)||Date.now(),timestamp:row.timestamp||'',
+    profil:{nama:row.nama||'',sekolah:row.sekolah||'',jurusan:row.jurusan||'',pendidikan:row.pendidikan||'',masaMengajar:row.masaMengajar||'',sertifikasi:row.sertifikasi||'',email:row.email||''},
+    kompetensi:{cp:Number(row.komp_cp)||0,tp:Number(row.komp_tp)||0,modul:Number(row.komp_modul)||0,skills:Number(row.komp_skills)||0,esp:Number(row.komp_esp)||0,asesmen:Number(row.komp_asesmen)||0,tech:Number(row.komp_tech)||0,tarl:Number(row.komp_tarl)||0,proficiency:Number(row.komp_proficiency)||0,pengembangan:Number(row.komp_pengembangan)||0},
+    tantangan:(row.tantangan||'').split(',').filter(Boolean),
+    training:(row.training||'').split(',').filter(Boolean),
+    format:(row.format||'').split(',').filter(Boolean),
+    frekuensi:row.frekuensi||'',
+    waktu:(row.waktu||'').split(',').filter(Boolean),
+    harapan:(row.harapan||'').split(',').filter(Boolean),
+    narasumber:row.narasumber||'',
+    saran:row.saran||'',tantanganLain:row.tantanganLain||'',pelatihanLain:row.pelatihanLain||'',
+  };
+}
+
+function isSheetConnected(){return !!(SHEET_API||getSavedAPI())}
+
+function renderConnectionStatus(){
+  const connected=isSheetConnected();
+  return `<div class="admin-bar ${connected?'logged-in':''}" style="margin-bottom:.5rem">
+    <div class="admin-status ${connected?'unlocked':'locked'}">${connected?'☁️ Terhubung ke Google Sheets':'⚠️ Belum terhubung ke Google Sheets'}</div>
+    <div style="flex:1"></div>
+    <button class="btn-admin ${connected?'btn-admin-logout':'btn-admin-login'}" onclick="showConfigPanel()">${connected?'⚙️ Pengaturan':'🔗 Hubungkan'}</button>
+  </div>`;
+}
+
+function showConfigPanel(){
+  const current=SHEET_API||getSavedAPI();
+  document.getElementById('confirmTitle').textContent='⚙️ Koneksi Google Sheets';
+  document.getElementById('confirmMsg').innerHTML=`
+    <div style="text-align:left;font-size:.78rem">
+      <p style="margin-bottom:.5rem">Paste URL Apps Script Web App Anda:</p>
+      <input type="text" id="sheetUrlInput" class="form-input" value="${current}" placeholder="https://script.google.com/macros/s/AKfycbx5pgedpkNvGBJ8LJuJ347hPd75saeZNleRxm3K_qRX2B7Hh9NOJTIM51Xd2QXj7Tp4rQ/exec" style="font-size:.78rem;margin-bottom:.6rem">
+      <p style="font-size:.68rem;color:var(--text-muted)">Lihat panduan setup di file <strong>PANDUAN-SETUP-GOOGLE-SHEETS.md</strong></p>
+    </div>`;
+  document.getElementById('confirmYes').textContent='💾 Simpan';
+  document.getElementById('confirmYes').className='btn btn-primary';
+  document.getElementById('confirmYes').onclick=async()=>{
+    const url=document.getElementById('sheetUrlInput').value.trim();
+    SHEET_API=url;saveAPI(url);closeConfirm();
+    if(url){showToast('☁️ Menghubungkan ke Google Sheets...');await fetchFromSheet();renderResults();showToast('✅ Terhubung! '+sheetCache.length+' data ditemukan')}
+    else{sheetCache=[];updateBadge();renderResults();showToast('🔌 Koneksi diputus')}
+  };
+  document.getElementById('confirmDialog').classList.add('show');
+}
+
+// === PRIVACY MASKING ===
+function maskName(name){
+  if(!name)return 'Anonim';
+  const parts=name.trim().split(/\s+/);
+  return parts.map(p=>{
+    if(p.length<=1)return p[0]+'*';
+    if(p.length<=3)return p[0]+'*'.repeat(p.length-1);
+    return p[0]+p[1]+'*'.repeat(p.length-2);
+  }).join(' ');
+}
+function maskEmail(email){
+  if(!email)return '—';
+  const [user,domain]=email.split('@');
+  if(!domain)return '***@***';
+  const maskedUser=user.length<=2?user[0]+'***':user.slice(0,2)+'*'.repeat(Math.min(user.length-2,5));
+  return maskedUser+'@'+domain;
+}
+function maskSchool(school){
+  if(!school)return '—';
+  const s=school.trim();
+  if(s.length<=4)return s[0]+'*'.repeat(s.length-1);
+  return s.slice(0,4)+'*'.repeat(Math.min(s.length-4,8));
+}
+function anonLabel(index){return 'Responden '+(index+1)}
+
+// === ADMIN MODE ===
+const ADMIN_PIN='mgmp2026';
+let isAdmin=false;
+function loginAdmin(){
+  const input=document.getElementById('adminPinInput');
+  if(!input)return;
+  if(input.value===ADMIN_PIN){isAdmin=true;showToast('🔓 Mode Admin aktif — identitas responden ditampilkan');renderResults()}
+  else{showToast('⚠️ Password salah');input.value=''}
+}
+function logoutAdmin(){isAdmin=false;showToast('🔒 Mode Admin dinonaktifkan');renderResults()}
+function renderAdminBar(){
+  if(isAdmin){
+    return `<div class="admin-bar logged-in">
+      <div class="admin-status unlocked">🔓 Mode Admin — Identitas terlihat</div>
+      <div style="flex:1"></div>
+      <button class="btn-admin btn-admin-logout" onclick="logoutAdmin()">Keluar Admin</button>
+    </div>`;
+  }
+  return `<div class="admin-bar">
+    <div class="admin-status locked">🔒 Identitas responden disamarkan</div>
+    <div style="flex:1"></div>
+    <input type="password" class="admin-input" id="adminPinInput" placeholder="Password admin" onkeydown="if(event.key==='Enter')loginAdmin()" style="max-width:140px">
+    <button class="btn-admin btn-admin-login" onclick="loginAdmin()">Masuk</button>
+  </div>`;
+}
+
+// ==================== INIT ====================
+async function init(){
+  SHEET_API=getSavedAPI();
+  renderProgress();renderLikert();
+  renderCheckGroup('chkPembelajaran',CHALLENGES.pembelajaran,'challenges');
+  renderCheckGroup('chkAsesmen',CHALLENGES.asesmen,'challenges');
+  renderCheckGroup('chkTeknologi',CHALLENGES.teknologi,'challenges');
+  renderCheckGroup('chkPelatihan',TRAINING_TOPICS,'training');
+  renderCheckGroup('chkFormat',FORMAT_OPTIONS,'format');
+  renderCheckGroup('chkWaktu',WAKTU_OPTIONS,'waktu');
+  renderCheckGroup('chkHarapan',HARAPAN_OPTIONS,'harapan');
+  renderRadioGroup('radioFrekuensi',FREQ_OPTIONS,'frekuensi');
+  renderRadioGroup('radioNarasumber',NARASUMBER_OPTIONS,'narasumber');
+  if(SHEET_API){await fetchFromSheet()}
+  updateBadge();
+}
+function renderProgress(){
+  const c=document.getElementById('progressSteps');c.innerHTML='';
+  for(let i=1;i<=totalSteps;i++){const d=document.createElement('div');d.className='progress-step'+(i<currentStep?' done':i===currentStep?' active':'');c.appendChild(d)}
+  document.getElementById('progressLabel').textContent=`Bagian ${currentStep}/${totalSteps}`;
+}
+function renderLikert(){
+  const c=document.getElementById('likertContainer');const labels=['STS','TS','S','SS'];
+  c.innerHTML=LIKERT_ITEMS.map(item=>`<div class="likert-item"><div class="likert-text">${item.text}</div><div class="likert-text-en">${item.en}</div><div class="likert-options">${labels.map((l,i)=>`<button class="likert-btn" onclick="setLikert('${item.id}',${i+1},this)">${l}<br><span style="font-size:.55rem;font-weight:400">(${i+1})</span></button>`).join('')}</div></div>`).join('');
+}
+function renderCheckGroup(cid,items,key){
+  document.getElementById(cid).innerHTML=items.map(item=>`<div class="check-item" onclick="toggleCheck(this,'${item.id}','${key}')"><div class="check-box"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div><div><div class="check-text">${item.text}</div>${item.en?`<div class="check-text-en">${item.en}</div>`:''}</div></div>`).join('');
+}
+function renderRadioGroup(cid,items,key){
+  document.getElementById(cid).innerHTML=items.map(item=>`<div class="radio-item" onclick="setRadio(this,'${item.id}','${key}','${cid}')"><div class="radio-dot"></div><div class="check-text">${item.text}</div></div>`).join('');
+}
+function setLikert(id,val,btn){state.likert[id]=val;btn.parentElement.querySelectorAll('.likert-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected')}
+function toggleCheck(el,id,key){el.classList.toggle('checked');state[key].has(id)?state[key].delete(id):state[key].add(id)}
+function setRadio(el,id,key,cid){document.getElementById(cid).querySelectorAll('.radio-item').forEach(r=>r.classList.remove('selected'));el.classList.add('selected');state[key]=id}
+function goStep(n){currentStep=n;document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));document.querySelector(`[data-step="${n}"]`).classList.add('active');renderProgress();window.scrollTo({top:0,behavior:'smooth'})}
+
+// ==================== PAGE SWITCH ====================
+async function switchPage(p){
+  document.getElementById('formPage').classList.toggle('active',p==='form');
+  document.getElementById('resultsPage').classList.toggle('active',p==='results');
+  document.getElementById('tabForm').classList.toggle('active',p==='form');
+  document.getElementById('tabResults').classList.toggle('active',p==='results');
+  document.getElementById('progressBar').style.display=p==='form'?'':'none';
+  if(p==='results'){
+    if(isSheetConnected()){
+      document.getElementById('resultsContent').innerHTML='<div style="text-align:center;padding:3rem"><div style="font-size:2rem;margin-bottom:.5rem">⏳</div><div style="font-size:.85rem;color:var(--text-muted)">Memuat data dari Google Sheets...</div></div>';
+      await fetchFromSheet();
+    }
+    renderResults();
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ==================== SUBMIT ====================
+async function submitForm(){
+  const nama=document.getElementById('nama').value.trim();
+  if(!nama){showToast('⚠️ Mohon isi nama lengkap terlebih dahulu');goStep(1);return}
+  if(!isSheetConnected()){showToast('⚠️ Hubungkan ke Google Sheets terlebih dahulu di tab Hasil');return}
+  const record={
+    id:Date.now(),timestamp:new Date().toISOString(),
+    profil:{nama,sekolah:document.getElementById('sekolah').value,jurusan:document.getElementById('jurusan').value,pendidikan:document.getElementById('pendidikan').value,masaMengajar:document.getElementById('masaMengajar').value,sertifikasi:document.getElementById('sertifikasi').value,email:document.getElementById('email').value},
+    kompetensi:{...state.likert},tantangan:[...state.challenges],training:[...state.training],format:[...state.format],
+    frekuensi:state.frekuensi,waktu:[...state.waktu],harapan:[...state.harapan],narasumber:state.narasumber,
+    saran:document.getElementById('saran')?.value||'',tantanganLain:document.getElementById('tantanganLain')?.value||'',pelatihanLain:document.getElementById('pelatihanLain')?.value||'',
+  };
+  showToast('⏳ Mengirim data ke Google Sheets...');
+  const ok=await postToSheet(record);
+  if(ok){
+    showToast('✅ Data berhasil dikirim! Terima kasih, '+nama);
+    await fetchFromSheet();
+    resetFormState();switchPage('results');
+  }else{
+    showToast('❌ Gagal mengirim. Periksa koneksi internet.');
+  }
+}
+function resetFormState(){
+  ['nama','sekolah','jurusan','email','saran','tantanganLain','pelatihanLain'].forEach(id=>{const e=document.getElementById(id);if(e)e.value=''});
+  ['pendidikan','masaMengajar','sertifikasi'].forEach(id=>{const e=document.getElementById(id);if(e)e.selectedIndex=0});
+  state.likert={};state.challenges.clear();state.training.clear();state.format.clear();state.waktu.clear();state.harapan.clear();state.frekuensi='';state.narasumber='';
+  document.querySelectorAll('.likert-btn.selected,.check-item.checked,.radio-item.selected').forEach(e=>e.classList.remove('selected','checked'));
+  goStep(1);
+}
+
+// ==================== RESULTS DASHBOARD ====================
+function renderResults(){
+  const rawData=getResponses();
+  const R=rawData.map(r=>r.profil?r:parseSheetRow(r));
+  const c=document.getElementById('resultsContent');
+  if(!isSheetConnected()){
+    c.innerHTML=`<div class="section-card"><div class="empty-state"><div class="empty-icon">🔗</div><div class="empty-title">Hubungkan Google Sheets</div><div class="empty-desc">Untuk menyimpan data responden secara terpusat agar bisa diakses dari perangkat manapun, hubungkan dengan Google Sheets terlebih dahulu.</div><button class="btn btn-primary" onclick="showConfigPanel()">🔗 Hubungkan Sekarang</button><div style="margin-top:.8rem;font-size:.72rem;color:var(--text-muted)">Lihat panduan di file <strong>PANDUAN-SETUP-GOOGLE-SHEETS.md</strong></div></div></div>`;return;
+  }
+  if(!R.length){c.innerHTML=renderConnectionStatus()+`<div class="section-card"><div class="empty-state"><div class="empty-icon">📭</div><div class="empty-title">Belum Ada Data Responden</div><div class="empty-desc">Kuesioner belum ada yang mengisi. Bagikan link ke WAG MGMP agar anggota bisa mengisi.</div><button class="btn btn-primary" onclick="switchPage('form')">📝 Isi Kuesioner</button></div></div>`;return}
+  const N=R.length;
+  // Competency averages
+  const compAvg={};LIKERT_ITEMS.forEach(li=>{const vals=R.map(r=>r.kompetensi[li.id]).filter(v=>v);compAvg[li.id]=vals.length?(vals.reduce((a,b)=>a+b,0)/vals.length):0});
+  const filledAvgs=Object.values(compAvg).filter(v=>v);
+  const overallAvg=filledAvgs.length?filledAvgs.reduce((a,b)=>a+b,0)/filledAvgs.length:0;
+  // Challenge frequency
+  const chFreq={};ALL_CHALLENGES.forEach(ch=>{chFreq[ch.id]=R.filter(r=>r.tantangan.includes(ch.id)).length});
+  const topChallenges=ALL_CHALLENGES.map(ch=>({...ch,count:chFreq[ch.id],pct:Math.round(chFreq[ch.id]/N*100)})).sort((a,b)=>b.count-a.count).filter(c=>c.count>0);
+  // Training frequency
+  const trFreq={};TRAINING_TOPICS.forEach(t=>{trFreq[t.id]=R.filter(r=>r.training.includes(t.id)).length});
+  const topTraining=TRAINING_TOPICS.map(t=>({...t,count:trFreq[t.id],pct:Math.round(trFreq[t.id]/N*100)})).sort((a,b)=>b.count-a.count).filter(t=>t.count>0);
+  // Format preference
+  const fmtFreq={};FORMAT_OPTIONS.forEach(f=>{fmtFreq[f.id]=R.filter(r=>r.format.includes(f.id)).length});
+  const topFormats=FORMAT_OPTIONS.map(f=>({...f,count:fmtFreq[f.id],pct:Math.round(fmtFreq[f.id]/N*100)})).sort((a,b)=>b.count-a.count);
+  // Frequency pref
+  const freqCount={};FREQ_OPTIONS.forEach(f=>{freqCount[f.id]=R.filter(r=>r.frekuensi===f.id).length});
+  // Harapan
+  const hapFreq={};HARAPAN_OPTIONS.forEach(h=>{hapFreq[h.id]=R.filter(r=>r.harapan.includes(h.id)).length});
+  const topHarapan=HARAPAN_OPTIONS.map(h=>({...h,count:hapFreq[h.id],pct:Math.round(hapFreq[h.id]/N*100)})).sort((a,b)=>b.count-a.count);
+  // Demografi
+  const sertCount=R.filter(r=>r.profil.sertifikasi==='Sudah').length;
+  const unsertCount=R.filter(r=>r.profil.sertifikasi==='Belum').length;
+  const expCount={'< 5 tahun':0,'5–10 tahun':0,'> 10 tahun':0};R.forEach(r=>{if(expCount[r.profil.masaMengajar]!==undefined)expCount[r.profil.masaMengajar]++});
+  const narCount={};NARASUMBER_OPTIONS.forEach(n=>{narCount[n.id]=R.filter(r=>r.narasumber===n.id).length});
+  const weakComps=LIKERT_ITEMS.filter(li=>compAvg[li.id]>0&&compAvg[li.id]<2.5).sort((a,b)=>compAvg[a.id]-compAvg[b.id]);
+  const sekolahSet=new Set(R.map(r=>r.profil.sekolah).filter(s=>s));
+  function compColor(v){return v>=3?'var(--success)':v>=2?'var(--warning)':'var(--danger)'}
+  function donut(items,colors){
+    const total=items.reduce((a,b)=>a+b.value,0);if(!total)return '';
+    let offset=0;const r=35,circ=2*Math.PI*r;
+    const paths=items.map((item,i)=>{const pct=item.value/total;const dash=pct*circ;const gap=circ-dash;const svg=`<circle cx="50" cy="50" r="${r}" fill="none" stroke="${colors[i%colors.length]}" stroke-width="12" stroke-dasharray="${dash} ${gap}" stroke-dashoffset="${-offset}" transform="rotate(-90 50 50)"/>`;offset+=dash;return svg}).join('');
+    return `<svg viewBox="0 0 100 100">${paths}<text x="50" y="50" text-anchor="middle" dy=".35em" style="font-size:16px;font-weight:800;fill:var(--primary)">${total}</text></svg>`;
+  }
+
+  let html='';
+  // Connection & Admin bar
+  html+=renderConnectionStatus();
+  html+=renderAdminBar();
+  // Stats
+  html+=`<div class="stats-grid">
+    <div class="stat-card"><div class="stat-value">${N}</div><div class="stat-label">Responden</div></div>
+    <div class="stat-card"><div class="stat-value">${sekolahSet.size}</div><div class="stat-label">Sekolah</div></div>
+    <div class="stat-card"><div class="stat-value">${overallAvg.toFixed(1)}</div><div class="stat-label">Avg Kompetensi</div></div>
+    <div class="stat-card"><div class="stat-value" style="color:${weakComps.length>3?'var(--danger)':'var(--success)'}">${weakComps.length}</div><div class="stat-label">Area Lemah</div></div>
+  </div>`;
+
+  // Demografi donuts
+  html+=`<div class="chart-card"><div class="chart-title"><span class="chart-title-icon">👥</span> Profil Demografi Responden</div>
+    <div class="donut-row">
+      <div class="donut-item">${donut([{value:sertCount},{value:unsertCount}],['var(--success)','var(--danger)'])}<div class="donut-label">Sertifikasi</div><div style="font-size:.55rem;color:var(--text-muted)">✅${sertCount} ❌${unsertCount}</div></div>
+      <div class="donut-item">${donut(Object.values(expCount).map(v=>({value:v})),['var(--primary-light)','var(--primary)','var(--accent)'])}<div class="donut-label">Pengalaman</div><div style="font-size:.55rem;color:var(--text-muted)">${Object.entries(expCount).map(([k,v])=>k+':'+v).join(' ')}</div></div>
+      <div class="donut-item">${donut(NARASUMBER_OPTIONS.map(n=>({value:narCount[n.id]})),['var(--success)','var(--warning)','var(--text-muted)'])}<div class="donut-label">Narasumber</div><div style="font-size:.55rem;color:var(--text-muted)">${NARASUMBER_OPTIONS.map(n=>n.text.split(',')[0]+':'+narCount[n.id]).join(' ')}</div></div>
+    </div></div>`;
+
+  // Competency
+  html+=`<div class="chart-card"><div class="chart-title"><span class="chart-title-icon">📊</span> Rata-rata Kompetensi Guru <span style="font-size:.65rem;font-weight:400;color:var(--text-muted)">(skala 1–4, ${N} responden)</span></div>
+    <div class="chart-desc">🟢 ≥ 3.0 Baik &nbsp; 🟡 2.0–2.9 Perlu Ditingkatkan &nbsp; 🔴 < 2.0 Kritis</div>
+    ${LIKERT_ITEMS.map(li=>{const v=compAvg[li.id];const pct=(v/4)*100;return `<div class="hbar"><div class="hbar-label"><span>${li.text}</span><span>${v.toFixed(2)}</span></div><div class="hbar-track"><div class="hbar-fill" style="width:${pct}%;background:${compColor(v)}"></div></div></div>`}).join('')}</div>`;
+
+  // Challenges
+  if(topChallenges.length){
+    html+=`<div class="chart-card"><div class="chart-title"><span class="chart-title-icon">⚡</span> Tantangan Mengajar <span style="font-size:.65rem;font-weight:400;color:var(--text-muted)">(% responden)</span></div>
+      ${topChallenges.slice(0,10).map(ch=>`<div class="hbar"><div class="hbar-label"><span>${ch.text}</span><span>${ch.count}/${N} (${ch.pct}%)</span></div><div class="hbar-track"><div class="hbar-fill" style="width:${ch.pct}%;background:${ch.pct>=60?'var(--danger)':ch.pct>=30?'var(--warning)':'var(--primary)'}"></div></div></div>`).join('')}</div>`;
+  }
+
+  // Training priority
+  if(topTraining.length){
+    html+=`<div class="chart-card"><div class="chart-title"><span class="chart-title-icon">🎯</span> Prioritas Kebutuhan Pelatihan</div>
+      <div class="priority-list">${topTraining.map((t,i)=>`<div class="priority-item" style="animation-delay:${i*0.06}s"><div class="priority-text">${t.text}<br><span style="font-size:.62rem;color:var(--text-muted)">${t.en}</span></div><div class="priority-score">${t.count}/${N} (${t.pct}%)</div></div>`).join('')}</div></div>`;
+  }
+
+  // Format & Harapan
+  html+=`<div class="chart-card"><div class="chart-title"><span class="chart-title-icon">🗓️</span> Preferensi & Harapan</div>
+    <h4 style="font-size:.75rem;color:var(--primary);margin-bottom:.4rem">Format Kegiatan</h4>
+    ${topFormats.filter(f=>f.count).map(f=>`<div class="hbar"><div class="hbar-label"><span>${f.text}</span><span>${f.pct}%</span></div><div class="hbar-track"><div class="hbar-fill" style="width:${f.pct}%;background:var(--primary)"></div></div></div>`).join('')}
+    <h4 style="font-size:.75rem;color:var(--primary);margin:.8rem 0 .4rem">Frekuensi Pertemuan</h4>
+    ${FREQ_OPTIONS.map(f=>{const cnt=freqCount[f.id];const pct=Math.round(cnt/N*100);return cnt?`<div class="hbar"><div class="hbar-label"><span>${f.text}</span><span>${cnt} (${pct}%)</span></div><div class="hbar-track"><div class="hbar-fill" style="width:${pct}%;background:var(--accent)"></div></div></div>`:''}).join('')}
+    <h4 style="font-size:.75rem;color:var(--primary);margin:.8rem 0 .4rem">Harapan Utama</h4>
+    ${topHarapan.filter(h=>h.count).map(h=>`<div class="hbar"><div class="hbar-label"><span>${h.text}</span><span>${h.pct}%</span></div><div class="hbar-track"><div class="hbar-fill" style="width:${h.pct}%;background:var(--success)"></div></div></div>`).join('')}</div>`;
+
+  // Saran
+  const saranList=R.map((r,i)=>({nama:isAdmin?r.profil.nama:anonLabel(i),saran:r.saran})).filter(s=>s.saran.trim());
+  if(saranList.length){
+    html+=`<div class="chart-card"><div class="chart-title"><span class="chart-title-icon">💬</span> Saran & Masukan</div>
+      ${saranList.map(s=>`<div style="background:var(--surface-alt);border-radius:8px;padding:.6rem .8rem;margin-bottom:.4rem;border-left:3px solid var(--primary-light)"><div style="font-size:.68rem;font-weight:700;color:var(--primary)">${isAdmin?'':'🔒 '}${s.nama}</div><div style="font-size:.72rem;color:var(--text-secondary)">${s.saran}</div></div>`).join('')}</div>`;
+  }
+
+  // Recommendations
+  html+=`<div class="chart-card"><div class="chart-title"><span class="chart-title-icon">🗺️</span> Rekomendasi Program Kerja MGMP</div>
+    <div class="chart-desc">Berdasarkan analisis agregat ${N} responden — dari quick wins hingga jangka panjang</div>
+    ${generateRecs(compAvg,topChallenges,topTraining,N).map(r=>`<div class="rec-card"><div class="rec-tag ${r.level}">${r.tag}</div><h4>${r.title}</h4><p>${r.desc}</p></div>`).join('')}</div>`;
+
+  // Respondent table
+  html+=`<div class="chart-card"><div class="chart-title"><span class="chart-title-icon">📋</span> Data Responden (${N})</div>
+    <div class="resp-table-wrap"><table class="resp-table"><thead><tr><th>No</th><th>${isAdmin?'Nama':'Responden'}</th><th>${isAdmin?'Sekolah':''}</th><th>Pend.</th><th>Pengalaman</th><th>Sertifikasi</th><th>Komp.</th><th>Tanggal</th>${isAdmin?'<th></th>':''}</tr></thead>
+    <tbody>${R.map((r,i)=>{const vals=Object.values(r.kompetensi);const avg=vals.length?(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1):'—';const tgl=new Date(r.timestamp).toLocaleDateString('id-ID',{day:'2-digit',month:'short'});const dispName=isAdmin?r.profil.nama:anonLabel(i);const dispSchool=isAdmin?(r.profil.sekolah||'—'):'';return `<tr><td>${i+1}</td><td><strong>${dispName}</strong></td>${isAdmin?`<td>${dispSchool}</td>`:''}<td>${r.profil.pendidikan||'—'}</td><td>${r.profil.masaMengajar||'—'}</td><td>${r.profil.sertifikasi||'—'}</td><td style="color:${avg>=3?'var(--success)':avg>=2?'var(--warning)':'var(--danger)'}"><strong>${avg}</strong></td><td>${tgl}</td>${isAdmin?`<td><button class="resp-delete" onclick="deleteResp(${r.id})">🗑️</button></td>`:''}</tr>`}).join('')}</tbody></table></div></div>`;
+
+  // Export
+  html+=`<div class="export-section"><h3>Simpan & Bagikan Hasil</h3><p>Download data atau salin ringkasan untuk WAG</p>
+    <div class="export-buttons">
+      <button class="btn-export" onclick="copyWA()">📱 Ringkasan WAG</button>
+      ${isAdmin?`<button class="btn-export" onclick="dlJSON()">💾 JSON</button>
+      <button class="btn-export" onclick="dlCSV()">📄 CSV</button>`:''}
+      <button class="btn-export" onclick="window.print()">🖨️ Cetak</button>
+    </div></div>
+    <div style="text-align:center;margin-top:1rem;display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="switchPage('form')">📝 Tambah Responden</button>
+      <button class="btn btn-secondary" onclick="switchPage('results')">🔄 Refresh Data</button>
+      ${isAdmin?`<button class="btn btn-secondary" onclick="showConfigPanel()">⚙️ Pengaturan</button>`:''}
+    </div>`;
+  c.innerHTML=html;
+}
+
+// ==================== RECOMMENDATIONS ====================
+function generateRecs(compAvg,topCh,topTr,N){
+  const recs=[];const topChIds=topCh.slice(0,5).map(c=>c.id);const topTrIds=topTr.slice(0,5).map(t=>t.id);
+  const weak=LIKERT_ITEMS.filter(li=>compAvg[li.id]>0&&compAvg[li.id]<2.5);
+  recs.push({level:'easy',tag:'Quick Win',title:'📱 Grup Berbagi Bahan Ajar & Resource',desc:`Buat folder Google Drive bersama. Setiap anggota kontribusi 1 resource/minggu. Tanpa biaya, mulai segera.`});
+  recs.push({level:'easy',tag:'Quick Win',title:'👥 Peer Teaching Bulanan',desc:`Jadwalkan 1 sesi/bulan — guru bergantian demo teknik terbaiknya. Fokus pada area kompetensi terendah.`});
+  if(weak.some(w=>['cp','tp','modul'].includes(w.id)))
+    recs.push({level:'easy',tag:'Quick Win',title:'📖 Workshop Bedah CP & ATP Fase F',desc:`Skor pemahaman kurikulum: ${compAvg.cp?.toFixed(1)||'—'}/4. Workshop internal untuk memastikan semua guru paham CP, TP, dan ATP.`});
+  if(topTrIds.includes('t3')||topChIds.includes('cp4'))
+    recs.push({level:'medium',tag:'Menengah',title:'🏭 Workshop ESP per Jurusan',desc:`${topCh.find(c=>c.id==='cp4')?.pct||0}% guru kesulitan ESP. Bagi kelompok per jurusan, susun bank materi ESP kolaboratif.`});
+  if(topChIds.some(id=>id.startsWith('ct'))||topTrIds.some(id=>['t6','t7'].includes(id)))
+    recs.push({level:'medium',tag:'Menengah',title:'💻 Pelatihan Bertahap: LMS → Media → AI',desc:`Tantangan teknologi dominan. Pelatihan 3 tahap bertahap dengan pendampingan.`});
+  if(weak.some(w=>w.id==='proficiency')||topTrIds.includes('t8'))
+    recs.push({level:'medium',tag:'Menengah',title:'🗣️ English Club Guru',desc:`Proficiency guru: ${compAvg.proficiency?.toFixed(1)||'—'}/4. Sesi practice rutin 2x/bulan: discussion, presentation, writing.`});
+  if(topChIds.some(id=>id.startsWith('ca'))||topTrIds.includes('t5'))
+    recs.push({level:'medium',tag:'Menengah',title:'📝 Workshop Asesmen Kurikulum Merdeka',desc:`Fokus: asesmen diagnostik, formatif, sumatif, soal HOTS, rubrik kinerja speaking/writing.`});
+  recs.push({level:'hard',tag:'Jangka Panjang',title:'📚 Bank Soal & Modul Digital Bersama',desc:`Target: setiap anggota kontribusi 1 modul + 1 paket soal/semester. Aset MGMP permanen.`});
+  if(topTrIds.includes('t9'))
+    recs.push({level:'hard',tag:'Jangka Panjang',title:'🔬 Pendampingan PTK Berkelompok',desc:`Fasilitasi PTK kolaboratif untuk mendukung kenaikan pangkat dan kualitas pembelajaran.`});
+  recs.push({level:'hard',tag:'Jangka Panjang',title:'🤝 Kemitraan DUDI & Perguruan Tinggi',desc:`Kerjasama industri untuk validasi ESP + universitas untuk pendampingan akademik.`});
+  return recs;
+}
+
+// ==================== DELETE ====================
+function deleteResp(id){
+  showToast('ℹ️ Untuk menghapus data, hapus baris langsung di Google Sheets lalu refresh halaman ini.');
+}
+function confirmClearAll(){
+  showToast('ℹ️ Untuk menghapus semua data, kosongkan baris di Google Sheets lalu refresh halaman ini.');
+}
+function closeConfirm(){document.getElementById('confirmDialog').classList.remove('show')}
+
+// ==================== EXPORT ====================
+function copyWA(){
+  const rawData=getResponses();const R=rawData.map(r=>r.profil?r:parseSheetRow(r));
+  if(!R.length)return showToast('⚠️ Belum ada data');
+  const N=R.length;
+  const compAvg={};LIKERT_ITEMS.forEach(li=>{const vals=R.map(r=>r.kompetensi[li.id]).filter(v=>v);compAvg[li.id]=vals.length?(vals.reduce((a,b)=>a+b,0)/vals.length):0});
+  const fa=Object.values(compAvg).filter(v=>v);const overallAvg=fa.length?fa.reduce((a,b)=>a+b,0)/fa.length:0;
+  const chFreq={};ALL_CHALLENGES.forEach(ch=>{chFreq[ch.id]=R.filter(r=>r.tantangan.includes(ch.id)).length});
+  const topCh=ALL_CHALLENGES.map(ch=>({text:ch.text,count:chFreq[ch.id]})).sort((a,b)=>b.count-a.count).filter(c=>c.count>0).slice(0,5);
+  const trFreq={};TRAINING_TOPICS.forEach(t=>{trFreq[t.id]=R.filter(r=>r.training.includes(t.id)).length});
+  const topTr=TRAINING_TOPICS.map(t=>({text:t.text,count:trFreq[t.id]})).sort((a,b)=>b.count-a.count).filter(t=>t.count>0).slice(0,5);
+  const weak=LIKERT_ITEMS.filter(li=>compAvg[li.id]>0&&compAvg[li.id]<2.5);
+  const text=`📊 *HASIL KUESIONER ANALISIS KEBUTUHAN*\n*MGMP Bahasa Inggris SMK*\n━━━━━━━━━━━━━━━━━━\n\n👥 *Total Responden:* ${N} guru\n📊 *Rata-rata Kompetensi:* ${overallAvg.toFixed(1)}/4.0\n⚠️ *Area Lemah:* ${weak.length} area\n\n${topCh.length?`⚡ *5 Tantangan Terbesar:*\n${topCh.map((c,i)=>`  ${i+1}. ${c.text} (${Math.round(c.count/N*100)}%)`).join('\n')}`:''}\n\n${topTr.length?`🎯 *5 Pelatihan Teratas:*\n${topTr.map((t,i)=>`  ${i+1}. ${t.text} (${Math.round(t.count/N*100)}%)`).join('\n')}`:''}\n\n${weak.length?`📉 *Kompetensi Perlu Ditingkatkan:*\n${weak.map(w=>`  • ${w.text}: ${compAvg[w.id].toFixed(1)}/4`).join('\n')}`:''}\n\n━━━━━━━━━━━━━━━━━━\n_Data ${N} responden — MGMP Needs Assessment_`;
+  navigator.clipboard.writeText(text).then(()=>showToast('📋 Tersalin! Paste ke WAG'));
+}
+function dlJSON(){const rawData=getResponses();const R=rawData.map(r=>r.profil?r:parseSheetRow(r));const b=new Blob([JSON.stringify(R,null,2)],{type:'application/json'});dl(b,`mgmp-responses-${new Date().toISOString().slice(0,10)}.json`);showToast('💾 JSON downloaded')}
+function dlCSV(){
+  const rawData=getResponses();const R=rawData.map(r=>r.profil?r:parseSheetRow(r));if(!R.length)return showToast('⚠️ Belum ada data');
+  const h=['No','Nama','Sekolah','Jurusan','Pendidikan','Pengalaman','Sertifikasi','Email',...LIKERT_ITEMS.map(i=>'Komp:'+i.text.substring(0,25)),'Tantangan','Pelatihan','Format','Frekuensi','Waktu','Harapan','Narasumber','Saran','Timestamp'];
+  const rows=R.map((r,i)=>[i+1,r.profil.nama,r.profil.sekolah,r.profil.jurusan,r.profil.pendidikan,r.profil.masaMengajar,r.profil.sertifikasi,r.profil.email,...LIKERT_ITEMS.map(li=>r.kompetensi[li.id]||''),r.tantangan.map(id=>ALL_CHALLENGES.find(c=>c.id===id)?.text||id).join('; '),r.training.map(id=>TRAINING_TOPICS.find(t=>t.id===id)?.text||id).join('; '),r.format.map(id=>FORMAT_OPTIONS.find(f=>f.id===id)?.text||id).join('; '),FREQ_OPTIONS.find(f=>f.id===r.frekuensi)?.text||'',r.waktu.map(id=>WAKTU_OPTIONS.find(w=>w.id===id)?.text||id).join('; '),r.harapan.map(id=>HARAPAN_OPTIONS.find(x=>x.id===id)?.text||id).join('; '),NARASUMBER_OPTIONS.find(n=>n.id===r.narasumber)?.text||'',r.saran,r.timestamp]);
+  const csv=[h,...rows].map(r=>r.map(v=>`"${(v+'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  dl(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}),`mgmp-responses-${new Date().toISOString().slice(0,10)}.csv`);showToast('📄 CSV downloaded');
+}
+function dl(b,n){const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;a.click();URL.revokeObjectURL(a.href)}
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000)}
+
+init();
+</script>
+</body>
+</html>
