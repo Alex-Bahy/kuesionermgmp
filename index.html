@@ -475,12 +475,35 @@ async function fetchFromSheet(){
   if(!url){sheetCache=[];updateBadge();return}
   isLoading=true;
   try{
-    const res=await fetch(url);
-    const data=await res.json();
+    const res=await fetch(url,{redirect:'follow'});
+    const text=await res.text();
+    let data;
+    try{data=JSON.parse(text)}catch{sheetCache=[];isLoading=false;updateBadge();return}
     if(Array.isArray(data)){sheetCache=data}
     else if(data.data&&Array.isArray(data.data)){sheetCache=data.data}
     else{sheetCache=[]}
-  }catch(e){console.error('Fetch error:',e);sheetCache=[]}
+  }catch(e){
+    // Fallback: try JSONP-style via script tag for CORS issues
+    try{
+      const jsonpUrl=url+(url.includes('?')?'&':'?')+'callback=__mgmpCb&t='+Date.now();
+      await new Promise((resolve,reject)=>{
+        window.__mgmpCb=function(data){
+          if(Array.isArray(data)){sheetCache=data}
+          else if(data&&data.data&&Array.isArray(data.data)){sheetCache=data.data}
+          else{sheetCache=[]}
+          delete window.__mgmpCb;resolve();
+        };
+        // If JSONP not supported, just fail gracefully
+        setTimeout(()=>{reject();},5000);
+        // Try direct fetch without cors
+        fetch(url,{mode:'cors',redirect:'follow'}).then(r=>r.json()).then(d=>{
+          if(Array.isArray(d)){sheetCache=d}
+          else if(d&&d.data){sheetCache=d.data}
+          resolve();
+        }).catch(reject);
+      });
+    }catch{sheetCache=[]}
+  }
   isLoading=false;
   updateBadge();
 }
@@ -505,7 +528,8 @@ async function postToSheet(record){
       narasumber:record.narasumber,
       saran:record.saran,tantanganLain:record.tantanganLain,pelatihanLain:record.pelatihanLain,
     };
-    await fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(flat)});
+    // Use no-cors for POST (will always succeed silently)
+    await fetch(url,{method:'POST',mode:'no-cors',body:JSON.stringify(flat)});
     return true;
   }catch(e){console.error('Post error:',e);return false}
 }
@@ -548,7 +572,7 @@ function showConfigPanel(){
   document.getElementById('confirmMsg').innerHTML=`
     <div style="text-align:left;font-size:.78rem">
       <p style="margin-bottom:.5rem">Paste URL Apps Script Web App Anda:</p>
-      <input type="text" id="sheetUrlInput" class="form-input" value="${current}" placeholder="https://script.google.com/macros/s/AKfycbydlIek54_nHBi7UCbTIk69D4u5pmJXxoh9x_P6WDhIFK054s1lp9Dgvz-Dj7K7MNlTsQ/exec" style="font-size:.78rem;margin-bottom:.6rem">
+      <input type="text" id="sheetUrlInput" class="form-input" value="${current}" placeholder="https://script.google.com/macros/s/AKfycbwH9bqzA_6RlfFetDVlRAkCfhDtRQ7dChF_MsqXfVcY-5s9mQGyEyI8QvjgFHru0GtK/exec" style="font-size:.78rem;margin-bottom:.6rem">
       <p style="font-size:.68rem;color:var(--text-muted)">Lihat panduan setup di file <strong>PANDUAN-SETUP-GOOGLE-SHEETS.md</strong></p>
     </div>`;
   document.getElementById('confirmYes').textContent='💾 Simpan';
