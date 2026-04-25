@@ -40,9 +40,10 @@ function doGet(e) {
     var allData = sheet.getDataRange().getValues();
 
     if (allData.length <= 1) {
-      return ContentService
+      var emptyOutput = ContentService
         .createTextOutput(JSON.stringify({ "data": [] }))
         .setMimeType(ContentService.MimeType.JSON);
+      return emptyOutput;
     }
 
     var headers = allData[0];
@@ -51,14 +52,20 @@ function doGet(e) {
     for (var r = 1; r < allData.length; r++) {
       var obj = {};
       for (var c = 0; c < headers.length; c++) {
-        obj[headers[c]] = allData[r][c];
+        var val = allData[r][c];
+        if (val instanceof Date) {
+          obj[headers[c]] = val.toISOString();
+        } else {
+          obj[headers[c]] = val;
+        }
       }
       results.push(obj);
     }
 
-    return ContentService
+    var output = ContentService
       .createTextOutput(JSON.stringify({ "data": results }))
       .setMimeType(ContentService.MimeType.JSON);
+    return output;
 
   } catch (err) {
     return ContentService
